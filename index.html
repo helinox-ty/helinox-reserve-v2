@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helinox 사내 캠핑장</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js'></script>
+    <script>
+        // API 기본 URL 동적 설정
+        const API_URL = location.hostname === 'localhost' 
+            ? 'http://localhost:3000/api'
+            : `http://${location.hostname}:3000/api`;
+        let calendar;
+
+        // 예약 제출 함수
+        async function submitReservation(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = {
+                name: form.name.value,
+                email: form.email.value,
+                phone: form.phone.value,
+                checkIn: form.checkIn.value,
+                checkOut: form.checkOut.value,
+                message: form.message.value
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/reservations`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert('예약이 성공적으로 접수되었습니다. 승인 후 이메일로 연락드리겠습니다.');
+                    form.reset();
+                    closeReservationModal();
+                } else {
+                    alert('예약 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                }
+            } catch (error) {
+                console.error('예약 저장 중 오류 발생:', error);
+                alert('예약 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+            }
+        }
+
+        // 예약 모달 제어 함수
+        function openReservationModal() {
+            document.getElementById('reservationModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            initializeCalendar();
+        }
+
+        function closeReservationModal() {
+            document.getElementById('reservationModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 캘린더 초기화
+        function initializeCalendar() {
+            const calendarEl = document.getElementById('bookingCalendar');
+            if (!calendar) {
+                calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    locale: 'ko',
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth'
+                    },
+                    selectable: true,
+                    select: function(info) {
+                        document.getElementById('checkIn').value = info.startStr;
+                        document.getElementById('checkOut').value = info.endStr;
+                        calendar.unselect();
+                    },
+                    events: async function(info, successCallback, failureCallback) {
+                        try {
+                            const response = await fetch(`${API_URL}/reservations`);
+                            const reservations = await response.json();
+                            const events = reservations
+                                .filter(reservation => reservation.status === 'approved')
+                                .map(reservation => ({
+                                    start: reservation.checkIn,
+                                    end: reservation.checkOut,
+                                    display: 'background',
+                                    backgroundColor: '#EF4444'
+                                }));
+                            successCallback(events);
+                        } catch (error) {
+                            console.error('예약 데이터 로딩 중 오류:', error);
+                            failureCallback(error);
+                        }
+                    },
+                    selectConstraint: {
+                        start: new Date().toISOString().split('T')[0],
+                    },
+                    selectOverlap: false
+                });
+                calendar.render();
+            } else {
+                calendar.refetchEvents();
+            }
+        }
+    </script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#000000',
+                        secondary: '#333333',
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .fc-event {
+            cursor: pointer;
+        }
+        .fc-event:hover {
+            opacity: 0.9;
+        }
+        .fc-day-past {
+            background-color: #F3F4F6;
+        }
+        .fc-day-today {
+            background-color: #E5E7EB !important;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- 네비게이션 바 -->
+    <nav class="bg-primary">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <img src="Helinox-로고_White.png" alt="Helinox" class="h-8 w-auto">
+                    <span class="text-white font-bold text-xl font-sans">사내 캠핑장</span>
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-white hover:text-gray-300 transition">홈</a>
+                    <a href="#" onclick="openReservationModal(); return false;" class="text-white hover:text-gray-300 transition">예약하기</a>
+                    <a href="admin.html" class="text-white hover:text-gray-300 transition">관리자</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 히어로 섹션 -->
+    <div class="relative h-screen">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" alt="캠핑장 전경" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        </div>
+        <div class="relative container mx-auto px-4 h-full flex items-center">
+            <div class="text-white max-w-3xl">
+                <h1 class="text-5xl font-bold mb-6"><img src="Helinox-로고_White.png" alt="Helinox" class="inline h-12 w-auto align-middle"> <span class="align-middle">사내 캠핑장에 오신 것을 환영합니다</span></h1>
+                <p class="text-xl mb-8">자연 속에서 즐기는 특별한 휴식, 직원들을 위한 프리미엄 캠핑 공간</p>
+                <button onclick="openReservationModal()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300">
+                    예약하기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 갤러리 섹션 -->
+    <div class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">캠핑장 전경</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="group relative overflow-hidden rounded-lg shadow-lg">
+                    <img src="0.jpg" alt="아름다운 산책로" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
+                </div>
+                <div class="group relative overflow-hidden rounded-lg shadow-lg">
+                    <img src="1.jpg" alt="편안한 휴식 공간" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
+                </div>
+                <div class="group relative overflow-hidden rounded-lg shadow-lg">
+                    <img src="2.jpg" alt="자연과 어우러진 피크닉 장소" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
+                </div>
+                <div class="group relative overflow-hidden rounded-lg shadow-lg">
+                    <img src="3.jpg" alt="고요한 호수 풍경" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
+                </div>
+                <div class="group relative overflow-hidden rounded-lg shadow-lg">
+                    <img src="4.jpg" alt="넓은 잔디밭 캠핑장" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
+                </div>
+                <div class="group relative overflow-hidden rounded-lg shadow-lg">
+                    <img src="5.jpeg" alt="현대적인 편의시설" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 이용수칙 및 매뉴얼 섹션 -->
+    <div class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">캠핑장 이용수칙 및 매뉴얼</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-gray-50 rounded-xl p-8 shadow-lg">
+                    <h3 class="text-xl font-bold mb-6">기본 수칙</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            체크인: 오후 2시 / 체크아웃: 오전 11시
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            지정된 사이트 외 무단 캠핑 금지
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            화재 위험이 있는 행위 절대 금지
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            긴급 상황 시 관리사무소로 연락
+                        </li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold mt-8 mb-6">환경 보호</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            쓰레기는 분리수거하여 지정된 장소에 배출
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            자연물 채취 및 훼손 금지
+                        </li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold mt-8 mb-6">에티켓</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            밤 10시 이후 소음 주의
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            공용 시설 사용 후 청결 유지
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-8 shadow-lg">
+                    <h3 class="text-xl font-bold mb-6">시설 이용 안내</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            쉘터 바로 앞 텐트설치 금지, 차량주차 금지
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            설치지 및 세척은 외부 개수대만 이용
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-primary mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                            </svg>
+                            쉘터 내 취사, 취식, 취침 행위 금지
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오시는 길 섹션 -->
+    <div class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">오시는 길</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl p-8 shadow-lg">
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4">주소</h3>
+                        <p class="text-gray-600">충북 음성군 원남면 조촌리 1306</p>
+                    </div>
+
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-4">대중교통 이용시</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>• 음성역에서 버스 50번 승차</li>
+                            <li>• 조촌리 정류장 하차 (약 15분 소요)</li>
+                            <li>• 하차 후 도보 10분</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">자가용 이용시</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li>• 서울 → 경부고속도로 → 음성IC (약 1시간 40분)</li>
+                            <li>• 음성IC → 조촌리 (약 25분)</li>
+                            <li>• 주차장 이용 가능 (무료)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rounded-xl overflow-hidden shadow-lg">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.123456789012!2d127.678!3d36.883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDA3JzI0LjQiTiAxMjc2NzguMCJF!5e0!3m2!1sko!2skr!4v1234567890123!5m2!1sko!2skr"
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer class="bg-primary text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <img src="Helinox-로고_Black.png" alt="Helinox" class="h-10 w-auto mb-4 brightness-0 invert">
+                    <p class="text-gray-400">직원들의 휴식과 힐링을 위한 특별한 공간</p>
+                </div>
+                <div></div>
+                <div class="text-right">
+                    <h4 class="text-lg font-bold mb-4">문의하기</h4>
+                    <p class="text-gray-400">전화: 032-578-8080</p>
+                    <p class="text-gray-400">이메일: tykim@helinox.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 예약 모달 -->
+    <div id="reservationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="fixed inset-0 flex items-center justify-center">
+            <div class="bg-white rounded-lg p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">예약하기</h3>
+                    <button onclick="closeReservationModal()" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- 캘린더 섹션 -->
+                <div class="mb-8">
+                    <h4 class="text-lg font-semibold mb-4">예약 가능 날짜 확인</h4>
+                    <div class="bg-white rounded-lg">
+                        <div id="bookingCalendar"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">
+                        * 빨간색으로 표시된 날짜는 이미 예약된 날짜입니다.<br>
+                        * 원하시는 체크인/아웃 날짜를 달력에서 드래그하여 선택해주세요.
+                    </p>
+                </div>
+
+                <form onsubmit="submitReservation(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">이름</label>
+                            <input type="text" id="name" name="name" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">이메일</label>
+                            <input type="email" id="email" name="email" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700">연락처</label>
+                            <input type="tel" id="phone" name="phone" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label for="checkIn" class="block text-sm font-medium text-gray-700">체크인</label>
+                            <input type="date" id="checkIn" name="checkIn" required readonly
+                                class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm">
+                        </div>
+                        <div>
+                            <label for="checkOut" class="block text-sm font-medium text-gray-700">체크아웃</label>
+                            <input type="date" id="checkOut" name="checkOut" required readonly
+                                class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="message" class="block text-sm font-medium text-gray-700">메시지</label>
+                            <textarea id="message" name="message" rows="3"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                        </div>
+                    </div>
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="closeReservationModal()"
+                            class="px-4 py-2 border rounded-lg">취소</button>
+                        <button type="submit"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-lg">예약하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

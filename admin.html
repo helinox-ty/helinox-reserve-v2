@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helinox 사내 캠핑장 - 관리자</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js'></script>
+    <script>
+        // API 기본 URL 동적 설정
+        const API_URL = location.hostname === 'localhost' 
+            ? 'http://localhost:3000/api'
+            : `http://${location.hostname}:3000/api`;
+        let calendar;
+
+        // 예약 불가 날짜 관리
+        async function addBlockedDate(start, end, reason) {
+            try {
+                const response = await fetch(`${API_URL}/blocked-dates`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ start, end, reason })
+                });
+
+                if (response.ok) {
+                    calendar.refetchEvents();
+                    loadBlockedDates();
+                } else {
+                    alert('예약 불가 날짜 설정에 실패했습니다.');
+                }
+            } catch (error) {
+                console.error('예약 불가 날짜 설정 중 오류:', error);
+                alert('예약 불가 날짜 설정에 실패했습니다.');
+            }
+        }
+
+        async function deleteBlockedDate(id) {
+            if (!confirm('이 예약 불가 기간을 삭제하시겠습니까?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/blocked-dates/${id}`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    calendar.refetchEvents();
+                    loadBlockedDates();
+                } else {
+                    alert('예약 불가 날짜 삭제에 실패했습니다.');
+                }
+            } catch (error) {
+                console.error('예약 불가 날짜 삭제 중 오류:', error);
+                alert('예약 불가 날짜 삭제에 실패했습니다.');
+            }
+        }
+
+        async function loadBlockedDates() {
+            try {
+                const response = await fetch(`${API_URL}/blocked-dates`);
+                const blockedDates = await response.json();
+                displayBlockedDates(blockedDates);
+            } catch (error) {
+                console.error('예약 불가 날짜 목록 로딩 중 오류:', error);
+            }
+        }
+
+        function displayBlockedDates(blockedDates) {
+            const tbody = document.querySelector('#blockedDatesTable tbody');
+            tbody.innerHTML = '';
+
+            blockedDates.forEach(date => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${new Date(date.start).toLocaleDateString()}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${new Date(date.end).toLocaleDateString()}</td>
+                    <td class="px-6 py-4">${date.reason}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <button onclick="deleteBlockedDate('${date.id}')"
+                                class="text-red-600 hover:text-red-900">삭제</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // 캘린더 초기화
+        function initializeCalendar() {
+            const calendarEl = document.getElementById('calendar');
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'ko',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek'
+                },
+                events: async function(info, successCallback, failureCallback) {
+                    try {
+                        const [reservationsResponse, blockedDatesResponse] = await Promise.all([
+                            fetch(`${API_URL}/reservations`),
+                            fetch(`${API_URL}/blocked-dates`)
+                        ]);
+                        
+                        const reservations = await reservationsResponse.json();
+                        const blockedDates = await blockedDatesResponse.json();
+                        
+                        const events = [
+                            ...reservations.map(reservation => ({
+                                title: `${reservation.name} 예약`,
+                                start: reservation.checkIn,
+                                end: reservation.checkOut,
+                                backgroundColor: getStatusColor(reservation.status),
+                                extendedProps: {
+                                    status: reservation.status,
+                                    email: reservation.email,
+                                    phone: reservation.phone
+                                }
+                            })),
+                            ...blockedDates.map(date => ({
+                                title: '예약 불가',
+                                start: date.start,
+                                end: date.end,
+                                backgroundColor: '#4B5563',
+                                extendedProps: {
+                                    reason: date.reason,
+                                    type: 'blocked'
+                                }
+                            }))
+                        ];
+                        successCallback(events);
+                    } catch (error) {
+                        console.error('데이터 로딩 중 오류:', error);
+                        failureCallback(error);
+                    }
+                },
+                eventClick: function(info) {
+                    if (info.event.extendedProps.type === 'blocked') {
+                        alert(`예약 불가 기간\n사유: ${info.event.extendedProps.reason}`);
+                    } else {
+                        alert(`
+예약 정보:
+예약자: ${info.event.title}
+이메일: ${info.event.extendedProps.email}
+연락처: ${info.event.extendedProps.phone}
+체크인: ${info.event.start.toLocaleDateString()}
+체크아웃: ${info.event.end.toLocaleDateString()}
+상태: ${getStatusText(info.event.extendedProps.status)}
+                        `);
+                    }
+                }
+            });
+            calendar.render();
+        }
+
+        function getStatusColor(status) {
+            switch(status) {
+                case 'approved': return '#10B981'; // 승인됨 - 초록색
+                case 'rejected': return '#EF4444'; // 거절됨 - 빨간색
+                default: return '#F59E0B'; // 대기중 - 주황색
+            }
+        }
+
+        function getStatusText(status) {
+            switch(status) {
+                case 'approved': return '승인됨';
+                case 'rejected': return '거절됨';
+                default: return '대기중';
+            }
+        }
+
+        // 예약 목록 불러오기
+        async function loadReservations() {
+            try {
+                const response = await fetch(`${API_URL}/reservations`);
+                const data = await response.json();
+                displayReservations(data);
+                if (calendar) {
+                    calendar.refetchEvents();
+                }
+            } catch (error) {
+                console.error('예약 목록 로딩 중 오류:', error);
+                alert('예약 목록을 불러오는데 실패했습니다.');
+            }
+        }
+
+        // 예약 상태 업데이트
+        async function updateReservationStatus(id, status) {
+            try {
+                const response = await fetch(`${API_URL}/reservations/${id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ status })
+                });
+
+                if (response.ok) {
+                    loadReservations();
+                } else {
+                    alert('예약 상태 업데이트에 실패했습니다.');
+                }
+            } catch (error) {
+                console.error('예약 상태 업데이트 중 오류:', error);
+                alert('예약 상태 업데이트에 실패했습니다.');
+            }
+        }
+
+        // 예약 삭제
+        async function deleteReservation(id) {
+            if (!confirm('정말로 이 예약을 삭제하시겠습니까?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/reservations/${id}`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    loadReservations();
+                } else {
+                    alert('예약 삭제에 실패했습니다.');
+                }
+            } catch (error) {
+                console.error('예약 삭제 중 오류:', error);
+                alert('예약 삭제에 실패했습니다.');
+            }
+        }
+
+        // 예약 목록 표시
+        function displayReservations(reservations) {
+            const tbody = document.querySelector('#reservationsTable tbody');
+            tbody.innerHTML = '';
+
+            reservations.forEach(reservation => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">${reservation.name}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${reservation.email}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${reservation.phone}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${new Date(reservation.checkIn).toLocaleDateString()}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${new Date(reservation.checkOut).toLocaleDateString()}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <select onchange="updateReservationStatus('${reservation.id}', this.value)"
+                                class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="pending" ${reservation.status === 'pending' ? 'selected' : ''}>대기중</option>
+                            <option value="approved" ${reservation.status === 'approved' ? 'selected' : ''}>승인됨</option>
+                            <option value="rejected" ${reservation.status === 'rejected' ? 'selected' : ''}>거절됨</option>
+                        </select>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <button onclick="deleteReservation('${reservation.id}')"
+                                class="text-red-600 hover:text-red-900">삭제</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // 예약 불가 날짜 추가 폼 제출
+        function handleBlockedDateSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            addBlockedDate(
+                form.startDate.value,
+                form.endDate.value,
+                form.reason.value
+            );
+            form.reset();
+        }
+
+        // 페이지 로드 시 실행
+        window.addEventListener('load', () => {
+            loadReservations();
+            loadBlockedDates();
+            initializeCalendar();
+        });
+    </script>
+    <style>
+        .fc-event {
+            cursor: pointer;
+        }
+        .fc-event:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- 네비게이션 바 -->
+    <nav class="bg-black">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <img src="Helinox-로고_White.png" alt="Helinox" class="h-8 w-auto">
+                    <span class="text-white font-bold text-xl">사내 캠핑장 관리자</span>
+                </a>
+                <div class="flex space-x-8">
+                    <a href="index.html" class="text-white hover:text-gray-300 transition">홈으로 돌아가기</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 메인 컨텐츠 -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- 예약 불가 날짜 설정 섹션 -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800">예약 불가 날짜 설정</h2>
+            </div>
+            <div class="p-6">
+                <form onsubmit="handleBlockedDateSubmit(event)" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <label for="startDate" class="block text-sm font-medium text-gray-700">시작일</label>
+                        <input type="date" id="startDate" name="startDate" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label for="endDate" class="block text-sm font-medium text-gray-700">종료일</label>
+                        <input type="date" id="endDate" name="endDate" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label for="reason" class="block text-sm font-medium text-gray-700">사유</label>
+                        <input type="text" id="reason" name="reason" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            placeholder="예: 시설 보수">
+                </div>
+                    <div class="flex items-end">
+                    <button type="submit" 
+                            class="bg-blue-600 text-white px-4 py-2 rounded-lg w-full">설정</button>
+                </div>
+            </form>
+        </div>
+            <div class="overflow-x-auto">
+                <table id="blockedDatesTable" class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">시작일</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">종료일</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">사유</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">관리</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- 예약 불가 날짜 목록이 여기에 동적으로 추가됩니다 -->
+                    </tbody>
+                </table>
+            </div>
+    </div>
+
+        <!-- 캘린더 섹션 -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800">예약 현황 캘린더</h2>
+            </div>
+            <div class="p-6">
+                <div id="calendar"></div>
+            </div>
+    </div>
+
+        <!-- 예약 목록 섹션 -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800">예약 관리</h2>
+                </div>
+            <div class="overflow-x-auto">
+                <table id="reservationsTable" class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">이름</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">이메일</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">연락처</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">체크인</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">체크아웃</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">상태</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">관리</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- 예약 목록이 여기에 동적으로 추가됩니다 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer class="bg-black text-white py-8 mt-8">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <img src="Helinox-로고_Black.png" alt="Helinox" class="h-8 w-auto brightness-0 invert">
+                </div>
+                <div class="text-right">
+                    <p class="text-sm text-gray-400">© 2024 Helinox. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
