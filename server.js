@@ -4,9 +4,10 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+const supabase = require('./utils/supabase');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // 서버의 IP 주소 가져오기
 function getServerIP() {
@@ -56,7 +57,7 @@ if (!fs.existsSync(USERS_FILE)) {
 
 // 루트 경로 핸들러
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.json({ status: 'ok', message: 'Helinox Camping API Server' });
 });
 
 // 관리자 페이지 핸들러
@@ -84,19 +85,57 @@ app.get('/api/reservations', (req, res) => {
 });
 
 // 예약 생성 API
-app.post('/api/reservations', (req, res) => {
-    const reservation = req.body;
-    const reservations = JSON.parse(fs.readFileSync(RESERVATIONS_FILE));
-    
-    // ID 생성
-    reservation.id = Date.now().toString();
-    reservation.status = 'pending';
-    reservation.createdAt = new Date().toISOString();
-    
-    reservations.push(reservation);
-    fs.writeFileSync(RESERVATIONS_FILE, JSON.stringify(reservations, null, 2));
-    
-    res.json({ success: true, reservation });
+app.post('/createReservation', async (req, res) => {
+    try {
+        console.log('Received reservation request:', req.body);
+        
+        const { name, department, date, people } = req.body;
+
+        // 필수 필드 검증
+        if (!name || !department || !date || !people) {
+            return res.status(400).json({
+                success: false,
+                message: '모든 필수 정보를 입력해주세요.'
+            });
+        }
+
+        // Supabase에 예약 정보 저장
+        const { data, error } = await supabase
+            .from('reservations')
+            .insert([
+                {
+                    name,
+                    department,
+                    reservation_date: date,
+                    people: parseInt(people),
+                    status: 'pending',
+                    created_at: new Date().toISOString()
+                }
+            ])
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            throw error;
+        }
+
+        console.log('Reservation created:', data);
+
+        res.status(200).json({
+            success: true,
+            message: '예약이 성공적으로 생성되었습니다.',
+            data
+        });
+
+    } catch (error) {
+        console.error('Server error:', error);
+        res.status(500).json({
+            success: false,
+            message: '서버 오류가 발생했습니다.',
+            error: error.message
+        });
+    }
 });
 
 // 예약 상태 업데이트 API
