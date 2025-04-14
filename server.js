@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
-const supabase = require('./utils/supabase');
+const { createClient } = require('@supabase/supabase-js');
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -100,6 +101,11 @@ app.post('/createReservation', async (req, res) => {
         }
 
         // Supabase에 예약 정보 저장
+        const supabase = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_ANON_KEY
+        );
+
         const { data, error } = await supabase
             .from('reservations')
             .insert([
