@@ -3,48 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>헬리녹스 캠핑장 예약</title>
+    <title>Helinox 사내 캠핑장</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    colors: {
+                        primary: '#000000',
+                        secondary: '#333333',
+                    },
                     fontFamily: {
                         sans: ['Noto Sans KR', 'sans-serif'],
-                    }
+                    },
                 }
             }
         }
     </script>
 </head>
-<body class="font-sans bg-gray-50">
-    <div class="min-h-screen flex flex-col items-center justify-center p-4">
-        <!-- 로고 및 제목 -->
-        <div class="text-center mb-12">
-            <img src="Helinox-로고_White.png" alt="Helinox" class="h-16 mx-auto mb-6">
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">헬리녹스 캠핑장 예약</h1>
-            <p class="text-xl text-gray-600 mb-8">직원 전용 사내 캠핑장 예약 시스템입니다.</p>
+<body class="font-sans">
+    <!-- 네비게이션 바 -->
+    <nav class="bg-primary">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <img src="Helinox-로고_White.png" alt="Helinox" class="h-8 w-auto">
+                    <span class="text-white font-bold text-2xl font-sans">사내 캠핑장</span>
+                </a>
+            </div>
         </div>
+    </nav>
 
-        <!-- 예약 버튼 -->
-        <div class="mb-12">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeR5Pm6GnzZXGa9CLRhuJ2YkreVKxmUKLkuR8YgRmUrZ6orEQ/viewform" 
-               target="_blank" 
-               class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg py-4 px-8 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg">
-                캠핑장 예약하러 가기
-            </a>
+    <!-- 히어로 섹션 -->
+    <div class="relative h-screen">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" alt="캠핑장 전경" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
         </div>
+        <div class="relative container mx-auto px-4 h-full flex items-center">
+            <div class="text-white max-w-3xl">
+                <h1 class="text-5xl font-bold mb-6"><img src="Helinox-로고_White.png" alt="Helinox" class="inline h-12 w-auto align-middle"> <span class="align-middle">사내 캠핑장에 오신 것을 환영합니다</span></h1>
+                <p class="text-xl mb-8">자연 속에서 즐기는 특별한 휴식, 직원들을 위한 프리미엄 캠핑 공간</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeR5Pm6GnzZXGa9CLRhuJ2YkreVKxmUKLkuR8YgRmUrZ6orEQ/viewform" 
+                   target="_blank" 
+                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300">
+                    예약하기
+                </a>
+            </div>
+        </div>
+    </div>
 
-        <!-- 안내사항 -->
-        <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
-            <h2 class="text-xl font-bold text-gray-900 mb-4">안내사항</h2>
-            <ul class="space-y-3 text-gray-700">
-                <li>• 체크인/아웃 날짜는 정확히 입력해주세요.</li>
-                <li>• 체크인: 오후 2시 / 체크아웃: 오전 11시</li>
-                <li>• 예약은 선착순으로 진행됩니다.</li>
-                <li>• 문의사항은 관리자에게 연락 부탁드립니다.</li>
-            </ul>
+    <!-- 갤러리 섹션 -->
+    <div class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">캠핑장 전경</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="group relative overflow-hidden rounded-lg shadow-lg">
+                    <img src="0.jpg" alt="아름다운 산책로" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
+                </div>
+                <div class="group relative overflow-hidden rounded-lg shadow-lg">
+                    <img src="1.jpg" alt="편안한 휴식 공간" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
+                </div>
+                <div class="group relative overflow-hidden rounded-lg shadow-lg">
+                    <img src="2.jpg" alt="자연과 어우러진 피크닉 장소" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
+                </div>
+                <div class="group relative overflow-hidden rounded-lg shadow-lg">
+                    <img src="3.jpg" alt="고요한 호수 풍경" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
+                </div>
+                <div class="group relative overflow-hidden rounded-lg shadow-lg">
+                    <img src="4.jpg" alt="넓은 잔디밭 캠핑장" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
+                </div>
+                <div class="group relative overflow-hidden rounded-lg shadow-lg">
+                    <img src="5.jpeg" alt="현대적인 편의시설" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 갤러리 섹션 다음에 바로 이용수칙 섹션이 오도록 수정 -->
+    <div class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">캠핑장 이용수칙</h2>
+            <div class="max-w-4xl mx-auto">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">🧱 HARD RULES</h3>
+                    <p class="mb-4"><strong>이건 반드시 지켜주세요.</strong></p>
+                    <ul class="list-disc pl-8 space-y-2">
+                        <li>쉘터 앞 텐트 설치 및 차량 주차 금지</li>
+                        <li>쉘터 내부에서 식사, 취사, 취침 행위 금지</li>
+                        <li>예약자 없이 동반인만 이용하는 행위 금지</li>
+                    </ul>
+                    <p class="italic text-gray-600 mt-6 border-l-4 border-gray-300 pl-6">
+                        We don't want to be strict,<br>
+                        but this place runs on trust. Let's keep it awesome.
+                    </p>
+                </div>
+
+                <div class="mt-16">
+                    <h3 class="text-xl font-bold mb-6">🏠 쉘터 이용 안내</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="font-bold text-lg">개방공간</p>
+                            <p class="mt-2">쉘터는 지하 1층만 개방합니다. 지상 1층은 출입이 금지됩니다.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg">사용 가능 시설</p>
+                            <p class="mt-2">냉장고, 제빙기, 워시타워, 화장실, 샤워장</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg">지참 필수 항목</p>
+                            <p class="mt-2">휴지, 세제, 샴푸 등 개인 위생용품은 직접 준비해주세요<br>
+                            (회사에서 제공하지 않습니다)</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg">전기 사용</p>
+                            <p class="mt-2">외부 정자 및 건물 외벽 콘센트만 사용 가능<br>
+                            쉘터 내부에서 외부로 전기 연결은 금지됩니다</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16">
+                    <h3 class="text-xl font-bold mb-6">♻️ 쓰레기 처리</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="font-bold text-lg">봉투 사용</p>
+                            <p class="mt-2">지정된 쓰레기봉투(창고 비치)를 사용해주세요</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg">배출 장소</p>
+                            <p class="mt-2">일반 및 재활용쓰레기는 마을 입구 품바재생예술체험촌(주소 : 충북 음성군 원남면 원중로399번길 30) 옆에 배출하거나 반드시 되가져가야합니다.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg">분리수거 필수</p>
+                            <p class="mt-2">재활용 분리수거는 정확히 부탁드립니다</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16">
+                    <h3 class="text-xl font-bold mb-6">📝 이용 보고 & 피드백</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="font-bold text-lg">시설 이상 발견 시</p>
+                            <p class="mt-2">즉시 제보 부탁드립니다</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-lg">운영 피드백</p>
+                            <p class="mt-2">이용 후 설문조사를 통해 운영 품질을 함께 높여갑니다</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 pt-8 border-t border-gray-200">
+                    <h3 class="text-xl font-bold mb-4">🌿 헬리녹스 쉘터는 모두의 쉼터입니다</h3>
+                    <p class="text-gray-700">
+                        조용하고 쾌적한 환경을 위해<br>
+                        작은 배려, 서로의 책임, 그리고 헬리녹스다운 태도를 지켜주세요.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 찾아가는 길 섹션 -->
+    <div class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">찾아가는 길</h2>
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- 왼쪽: 주소 및 찾아오는 방법 -->
+                    <div class="bg-white rounded-xl p-8 shadow-lg">
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold mb-4">주소</h3>
+                            <div class="flex items-start space-x-3">
+                                <svg class="w-6 h-6 text-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <span class="text-lg">충청북도 음성군 원남면 조촌리 1306</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-bold mb-4">대중교통 이용</h3>
+                            <ul class="space-y-4">
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-6 h-6 text-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <div>
+                                        <p class="font-bold">버스 이용</p>
+                                        <p>음성 시외버스터미널 → 원남면행 버스 탑승 → 조촌리 하차</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-6 h-6 text-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <div>
+                                        <p class="font-bold">기차 이용</p>
+                                        <p>음성역(중앙선) 하차 → 택시 이용(약 25분 소요)</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <svg class="w-6 h-6 text-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <div>
+                                        <p class="font-bold">자차 이용</p>
+                                        <p>중부고속도로 → 음성IC → 원남면 방면 → 조촌리</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 오른쪽: 구글 맵 -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3193.119118631452!2d127.65145587651068!3d36.85339697186857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3564fccec77777eb%3A0x2ca9c0847a9396b!2z7Lap7LKt67aB64-EIOyZuOyEseyLnCDsm5Dsm5DrqbQg7KGw7LGF66asIDEzMDY!5e0!3m2!1sko!2skr!4v1718011045080!5m2!1sko!2skr" 
+                            width="100%" 
+                            height="450" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
