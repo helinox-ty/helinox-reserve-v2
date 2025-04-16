@@ -31,6 +31,12 @@
                     <img src="Helinox-로고_White.png" alt="Helinox" class="h-8 w-auto">
                     <span class="text-white font-bold text-2xl font-sans">사내 캠핑장</span>
                 </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#gallery" class="text-white hover:text-gray-300 transition">캠핑장 전경</a>
+                    <a href="#rules" class="text-white hover:text-gray-300 transition">이용수칙</a>
+                    <a href="#attractions" class="text-white hover:text-gray-300 transition">주변 관광지</a>
+                    <a href="#directions" class="text-white hover:text-gray-300 transition">찾아오시는 길</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -45,17 +51,23 @@
             <div class="text-white max-w-3xl">
                 <h1 class="text-5xl font-bold mb-6"><img src="Helinox-로고_White.png" alt="Helinox" class="inline h-12 w-auto align-middle"> <span class="align-middle">사내 캠핑장에 오신 것을 환영합니다</span></h1>
                 <p class="text-xl mb-8">자연 속에서 즐기는 특별한 휴식, 직원들을 위한 프리미엄 캠핑 공간</p>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeR5Pm6GnzZXGa9CLRhuJ2YkreVKxmUKLkuR8YgRmUrZ6orEQ/viewform" 
-                   target="_blank" 
-                   class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300">
-                    예약하기
-                </a>
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeR5Pm6GnzZXGa9CLRhuJ2YkreVKxmUKLkuR8YgRmUrZ6orEQ/viewform" 
+                       target="_blank" 
+                       class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300">
+                        예약하기
+                    </a>
+                    <a href="#attractions" 
+                       class="inline-block bg-transparent hover:bg-white hover:text-black text-white font-bold py-2 px-6 border-2 border-white rounded-lg transition duration-300">
+                        주변 관광지 보기
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- 갤러리 섹션 -->
-    <div class="py-20 bg-gray-50">
+    <div id="gallery" class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-center mb-12">캠핑장 전경</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -82,7 +94,7 @@
     </div>
 
     <!-- 갤러리 섹션 다음에 바로 이용수칙 섹션이 오도록 수정 -->
-    <div class="py-20 bg-white">
+    <div id="rules" class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-center mb-12">캠핑장 이용수칙</h2>
             <div class="max-w-4xl mx-auto">
@@ -179,8 +191,76 @@
         </div>
     </div>
 
+    <!-- 주변 관광지 섹션 -->
+    <div id="attractions" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">주변 관광지</h2>
+            <div class="max-w-5xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <!-- 원남저수지 -->
+                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg">
+                        <img src="https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzA1MDdfMTIw%2FMDAxNjgzNDM3MTg5ODQ0.7a78SrfmBjLYrObHN3_A5G8zvQy5LCaTn5Lfm9Mfxgog.u5NFtJjBPIIKtNUJiN-nZsKHzV1b1bCW8STLpW62YUog.JPEG%2F20230507_120554.jpg" 
+                             alt="원남저수지" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-3">원남저수지</h3>
+                            <p class="text-gray-700 mb-4">
+                                캠핑장에서 가까운 원남저수지는 아름다운 경관과 함께 산책하기 좋은 곳입니다. 고요한 호수와 주변의 자연 풍경이 어우러져 힐링의 시간을 선사합니다. 저수지 주변으로 조성된 산책로는 가볍게 걷기 좋으며, 특히 일출과 일몰 시간에 방문하면 아름다운 풍경을 감상할 수 있습니다.
+                            </p>
+                            <div class="flex items-start space-x-2 text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <span>충북 음성군 원남면 일대</span>
+                            </div>
+                            <div class="mt-2 flex items-start space-x-2 text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>24시간 개방</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 원남 독 놀이터 -->
+                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg">
+                        <img src="https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzA0MTZfMjA5%2FMDAxNjgxNjM2OTQzMDM4.Sla77xZj9dAFPBp8qWsz_YeE2t3ib-Swd5Kt28mMsvIg.XsKiIcmzbZmwWcEFf_qWLX_LvOYfidvk0-pUF07kYYUg.JPEG%2F20230416_151021.jpg" 
+                             alt="원남독 놀이터" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-3">원남 독(犢) 놀이터</h3>
+                            <p class="text-gray-700 mb-4">
+                                원남테마공원 내에 위치한 반려견 전용 놀이터로, 넓은 잔디밭에서 반려견과 함께 자유롭게 뛰어놀 수 있는 공간입니다. 대형견과 소형견 구역이 구분되어 있으며, 그늘막과 벤치도 마련되어 있어 반려견과 함께 여행하는 분들께 추천합니다. 강아지와 함께 캠핑을 오신다면 꼭 들러보세요.
+                            </p>
+                            <div class="flex items-start space-x-2 text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                <span>충북 음성군 원남면 원중로399번길 30 (원남테마공원 내)</span>
+                            </div>
+                            <div class="mt-2 flex items-start space-x-2 text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>연중무휴 (24시간 개방)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 추가 정보 -->
+                <div class="mt-10 bg-gray-50 rounded-xl p-6 shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">더 알아보기</h3>
+                    <p class="text-gray-700">
+                        원남면 일대에는 품바재생예술체험촌, 양촌리 음식특화거리 등 다양한 볼거리와 먹거리가 있습니다. 캠핑장에서의 힐링과 함께 주변 관광지를 방문하시면 더욱 풍성한 여행이 될 것입니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 찾아가는 길 섹션 -->
-    <div class="py-20 bg-gray-50">
+    <div id="directions" class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-center mb-12">찾아가는 길</h2>
             <div class="max-w-6xl mx-auto">
