@@ -49,33 +49,15 @@
         </div>
     </div>
 
-    <!-- 주소 정보 -->
-    <div class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto bg-gray-100 rounded-lg p-8 shadow-lg">
-                <div class="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
-                    <div class="text-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <h2 class="text-2xl font-bold mb-4">주소</h2>
-                        <p class="text-lg mb-2">충청북도 음성군 원남면 원중로399번길 309</p>
-                        <p class="text-gray-600">우편번호: 27739</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- 지도 섹션 -->
     <div class="py-16 bg-gray-100">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold mb-8 text-center">캠핑장 오시는 길 안내</h2>
-            <div class="max-w-5xl mx-auto rounded-lg overflow-hidden shadow-lg bg-white">
-                <img src="10.jpeg" alt="캠핑장 위치 지도" class="w-full">
+            <div class="max-w-5xl mx-auto">
+                <!-- 지도 -->
+                <div class="rounded-lg overflow-hidden shadow-lg bg-white mb-10">
+                    <img src="7.jpeg" alt="캠핑장 위치 지도" class="w-full h-full object-cover">
+                </div>
             </div>
         </div>
     </div>
@@ -83,11 +65,11 @@
     <!-- 교통 정보 섹션 -->
     <div class="py-16 bg-white">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
                 <!-- 대중교통 이용 -->
-                <div class="bg-gray-100 rounded-lg p-8 shadow-lg">
-                    <div class="flex items-start mb-6">
-                        <div class="bg-primary rounded-full p-3 mr-4">
+                <div class="bg-gray-100 rounded-lg p-8 shadow-lg flex flex-col h-full">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-primary rounded-full p-3 mr-4 flex-shrink-0">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                             </svg>
@@ -95,23 +77,25 @@
                         <h3 class="text-2xl font-bold">대중교통 이용</h3>
                     </div>
                     
-                    <div class="space-y-4 ml-16">
-                        <div>
-                            <h4 class="font-bold text-lg mb-2">버스 이용</h4>
-                            <p>음성 시외버스터미널 → 원남면행 버스 탑승 → 조촌리 하차</p>
+                    <div class="space-y-6 ml-16 flex-grow">
+                        <div class="bg-white p-4 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2">기차 이용</h4>
+                            <p>KTX/무궁화호 → 음성역 하차 → 택시 이용 (약 20분 소요)</p>
+                            <p class="text-sm text-gray-600 mt-1">음성역에서 거리: 약 15km</p>
                         </div>
                         
-                        <div>
-                            <h4 class="font-bold text-lg mb-2">기차 이용</h4>
-                            <p>음성역(중앙선) 하차 → 택시 이용(약 25분 소요)</p>
+                        <div class="bg-white p-4 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2">고속버스 이용</h4>
+                            <p>음성터미널 하차 → 시내버스 302번 → 원남면사무소 하차 → 도보 15분</p>
+                            <p class="text-sm text-gray-600 mt-1">버스 배차 간격: 30분</p>
                         </div>
                     </div>
                 </div>
                 
                 <!-- 자가용 이용 -->
-                <div class="bg-gray-100 rounded-lg p-8 shadow-lg">
-                    <div class="flex items-start mb-6">
-                        <div class="bg-primary rounded-full p-3 mr-4">
+                <div class="bg-gray-100 rounded-lg p-8 shadow-lg flex flex-col h-full">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-primary rounded-full p-3 mr-4 flex-shrink-0">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h8m0 0l-4-4m4 4l-4 4m8 6H4" />
                             </svg>
@@ -119,10 +103,17 @@
                         <h3 class="text-2xl font-bold">자차 이용</h3>
                     </div>
                     
-                    <div class="space-y-4 ml-16">
-                        <div>
-                            <h4 class="font-bold text-lg mb-2">경로 안내</h4>
-                            <p>중부고속도로 → 음성IC → 원남면 방면 → 조촌리</p>
+                    <div class="space-y-6 ml-16 flex-grow">
+                        <div class="bg-white p-4 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2">서울 방면에서 오실 경우</h4>
+                            <p>중부고속도로 → 음성IC → 원남면 방면 → 원중로399번길</p>
+                            <p class="text-sm text-gray-600 mt-1">약 1시간 30분 소요 (거리: 약 120km)</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg">
+                            <h4 class="font-bold text-lg mb-2">대전 방면에서 오실 경우</h4>
+                            <p>경부고속도로 → 청주IC → 음성방면 → 원남면 방면 → 원중로399번길</p>
+                            <p class="text-sm text-gray-600 mt-1">약 1시간 20분 소요 (거리: 약 100km)</p>
                         </div>
                     </div>
                 </div>
