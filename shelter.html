@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쉘터 내부 - Helinox 사내 캠핑장</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#000000',
+                        secondary: '#333333',
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans">
+    <!-- 네비게이션 바 -->
+    <nav class="bg-primary">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <img src="Helinox-로고_White.png" alt="Helinox" class="h-8 w-auto">
+                    <span class="text-white font-bold text-2xl font-sans">사내 캠핑장</span>
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="gallery.html" class="text-white hover:text-gray-300 transition">캠핑장 전경</a>
+                    <a href="shelter.html" class="text-white hover:text-gray-300 transition border-b-2 border-white">쉘터 내부</a>
+                    <a href="rules.html" class="text-white hover:text-gray-300 transition">이용수칙</a>
+                    <a href="attractions.html" class="text-white hover:text-gray-300 transition">주변 관광지</a>
+                    <a href="directions.html" class="text-white hover:text-gray-300 transition">찾아오시는 길</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 헤더 섹션 -->
+    <div class="bg-gray-800 py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-white mb-4">쉘터 내부</h1>
+                <p class="text-xl text-gray-300">지하 1층에 위치한 쉘터에서 편안한 휴식을 즐겨보세요</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 쉘터 내부 섹션 -->
+    <div class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <p class="text-lg text-gray-700 mb-12 text-center">
+                    지하 1층에 위치한 쉘터 내부에는 냉장고, 제빙기, 워시타워, 화장실, 샤워장 등 다양한 편의시설이 마련되어 있습니다. 쾌적한 환경에서 캠핑의 불편함 없이 휴식을 취하실 수 있습니다.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="group relative overflow-hidden rounded-lg shadow-lg">
+                        <img src="8.jpeg" alt="쉘터 내부 1" class="w-full h-80 object-cover transform group-hover:scale-105 transition duration-300">
+                        <div class="p-4 bg-white">
+                            <h3 class="font-bold text-lg">편의 공간</h3>
+                            <p class="text-gray-600">다양한 편의시설이 구비된 쉘터 내부</p>
+                        </div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-lg shadow-lg">
+                        <img src="9.jpeg" alt="쉘터 내부 2" class="w-full h-80 object-cover transform group-hover:scale-105 transition duration-300">
+                        <div class="p-4 bg-white">
+                            <h3 class="font-bold text-lg">휴식 공간</h3>
+                            <p class="text-gray-600">편안한 휴식을 위한 내부 시설</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 bg-gray-50 p-8 rounded-lg shadow">
+                    <h3 class="text-2xl font-bold mb-4">쉘터 이용 안내</h3>
+                    <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                        <li><span class="font-medium">개방 공간</span>: 쉘터는 지하 1층만 개방합니다. 지상 1층은 출입이 금지됩니다.</li>
+                        <li><span class="font-medium">사용 가능 시설</span>: 냉장고, 제빙기, 워시타워, 화장실, 샤워장</li>
+                        <li><span class="font-medium">지참 필수 항목</span>: 휴지, 세제, 샴푸 등 개인 위생용품</li>
+                        <li><span class="font-medium">전기 사용</span>: 외부 정자 및 건물 외벽 콘센트만 사용 가능</li>
+                        <li><span class="font-medium">주의 사항</span>: 쉘터 내부에서 식사, 취사, 취침 행위는 금지됩니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <img src="Helinox-로고_White.png" alt="Helinox" class="h-8 w-auto">
+                        <span class="font-bold text-xl">사내 캠핑장</span>
+                    </a>
+                </div>
+                <div class="text-center md:text-right">
+                    <p>주소: 충청북도 음성군 원남면 원중로399번길 309</p>
+                    <p class="mt-2">© 2023 Helinox. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

@@ -32,10 +32,10 @@
                     <span class="text-white font-bold text-2xl font-sans">사내 캠핑장</span>
                 </a>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#gallery" class="text-white hover:text-gray-300 transition">캠핑장 전경</a>
-                    <a href="#rules" class="text-white hover:text-gray-300 transition">이용수칙</a>
-                    <a href="#attractions" class="text-white hover:text-gray-300 transition">주변 관광지</a>
-                    <a href="#directions" class="text-white hover:text-gray-300 transition">찾아오시는 길</a>
+                    <a href="gallery.html" class="text-white hover:text-gray-300 transition">캠핑장 전경</a>
+                    <a href="rules.html" class="text-white hover:text-gray-300 transition">이용수칙</a>
+                    <a href="attractions.html" class="text-white hover:text-gray-300 transition">주변 관광지</a>
+                    <a href="directions.html" class="text-white hover:text-gray-300 transition">찾아오시는 길</a>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
         </div>
         <div class="relative container mx-auto px-4 h-full flex items-center">
             <div class="text-white max-w-3xl">
-                <h1 class="text-5xl font-bold mb-6"><img src="Helinox-로고_White.png" alt="Helinox" class="inline h-12 w-auto align-middle"> <span class="align-middle">사내 캠핑장에 오신 것을 환영합니다</span></h1>
+                <h1 class="text-5xl font-bold mb-6 whitespace-nowrap">Helinox 사내 캠핑장에 오신 것을 환영합니다</h1>
                 <p class="text-xl mb-8">자연 속에서 즐기는 특별한 휴식, 직원들을 위한 프리미엄 캠핑 공간</p>
                 <div class="flex flex-wrap gap-4">
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSeR5Pm6GnzZXGa9CLRhuJ2YkreVKxmUKLkuR8YgRmUrZ6orEQ/viewform" 
@@ -57,19 +57,16 @@
                        class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300">
                         예약하기
                     </a>
-                    <a href="#attractions" 
-                       class="inline-block bg-transparent hover:bg-white hover:text-black text-white font-bold py-2 px-6 border-2 border-white rounded-lg transition duration-300">
-                        주변 관광지 보기
-                    </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 갤러리 섹션 -->
-    <div id="gallery" class="py-20 bg-gray-50">
+    <!-- 캠핑장 전경 섹션 -->
+    <div class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-center mb-12">캠핑장 전경</h2>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="group relative overflow-hidden rounded-lg shadow-lg">
                     <img src="0.jpg" alt="아름다운 산책로" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
@@ -94,262 +91,110 @@
     </div>
 
     <!-- 쉘터 내부 섹션 -->
-    <div id="shelter" class="py-20 bg-white">
+    <div class="py-16 bg-gray-100">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">쉘터 내부</h2>
-            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">지하 1층에 위치한 쉘터 내부에는 냉장고, 제빙기, 워시타워, 화장실, 샤워장 등 편의시설이 마련되어 있습니다.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-8">쉘터 내부</h2>
+            <p class="text-lg text-gray-700 mb-10 text-center max-w-4xl mx-auto">
+                지하 1층에 위치한 쉘터 내부에는 냉장고, 제빙기, 워시타워, 화장실, 샤워장 등 편의시설이 마련되어 있습니다.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <div class="group relative overflow-hidden rounded-lg shadow-lg">
-                    <img src="8.jpeg" alt="쉘터 내부 1" class="w-full h-80 object-cover transform group-hover:scale-105 transition duration-300">
+                    <img src="8.jpeg" alt="쉘터 내부 1" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
                 </div>
                 <div class="group relative overflow-hidden rounded-lg shadow-lg">
-                    <img src="9.jpeg" alt="쉘터 내부 2" class="w-full h-80 object-cover transform group-hover:scale-105 transition duration-300">
+                    <img src="9.jpeg" alt="쉘터 내부 2" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-300">
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 갤러리 섹션 다음에 바로 이용수칙 섹션이 오도록 수정 -->
-    <div id="rules" class="py-20 bg-white">
+    <!-- 이용수칙 요약 섹션 -->
+    <div class="py-16 bg-white">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">캠핑장 이용수칙</h2>
-            <div class="max-w-4xl mx-auto">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">🧱 HARD RULES</h3>
-                    <p class="mb-4"><strong>이건 반드시 지켜주세요.</strong></p>
-                    <ul class="list-disc pl-8 space-y-2">
-                        <li>쉘터 앞 텐트 설치 및 차량 주차 금지</li>
-                        <li>쉘터 내부에서 식사, 취사, 취침 행위 금지</li>
-                        <li>예약자 없이 동반인만 이용하는 행위 금지</li>
-                    </ul>
-                    <p class="italic text-gray-600 mt-6 border-l-4 border-gray-300 pl-6">
-                        We don't want to be strict,<br>
-                        but this place runs on trust. Let's keep it awesome.
-                    </p>
-                </div>
-
-                <div class="mt-16">
-                    <h3 class="text-xl font-bold mb-6">🏠 쉘터 이용 안내</h3>
-                    <div class="space-y-6">
-                        <div>
-                            <p class="font-bold text-lg">개방공간</p>
-                            <p class="mt-2">쉘터는 지하 1층만 개방합니다. 지상 1층은 출입이 금지됩니다.</p>
-                        </div>
-                        <div>
-                            <p class="font-bold text-lg">사용 가능 시설</p>
-                            <p class="mt-2">냉장고, 제빙기, 워시타워, 화장실, 샤워장</p>
-                        </div>
-                        <div>
-                            <p class="font-bold text-lg">지참 필수 항목</p>
-                            <p class="mt-2">휴지, 세제, 샴푸 등 개인 위생용품은 직접 준비해주세요<br>
-                            (회사에서 제공하지 않습니다)</p>
-                        </div>
-                        <div>
-                            <p class="font-bold text-lg">전기 사용</p>
-                            <p class="mt-2">외부 정자 및 건물 외벽 콘센트만 사용 가능<br>
-                            쉘터 내부에서 외부로 전기 연결은 금지됩니다</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-16">
-                    <h3 class="text-xl font-bold mb-6">♻️ 쓰레기 처리</h3>
-                    <div class="space-y-6">
-                        <div>
-                            <p class="font-bold text-lg">봉투 사용</p>
-                            <p class="mt-2">지정된 쓰레기봉투(창고 비치)를 사용해주세요</p>
-                        </div>
-                        <div>
-                            <p class="font-bold text-lg">배출 장소</p>
-                            <p class="mt-2">일반 및 재활용쓰레기는 마을 입구 품바재생예술체험촌(주소 : 충북 음성군 원남면 원중로399번길 30) 옆에 배출하거나 반드시 되가져가야합니다.</p>
-                        </div>
-                        <div>
-                            <p class="font-bold text-lg">분리수거 필수</p>
-                            <p class="mt-2">재활용 분리수거는 정확히 부탁드립니다</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-16">
-                    <h3 class="text-xl font-bold mb-6">📝 이용 보고 & 피드백</h3>
-                    <div class="space-y-6">
-                        <div>
-                            <p class="font-bold text-lg">시설 이상 발견 시</p>
-                            <p class="mt-2">즉시 제보 부탁드립니다</p>
-                        </div>
-                        <div>
-                            <p class="font-bold text-lg">운영 피드백</p>
-                            <p class="mt-2">이용 후 설문조사를 통해 운영 품질을 함께 높여갑니다</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-16 pt-8 border-t border-gray-200">
-                    <h3 class="text-xl font-bold mb-4">🌿 헬리녹스 쉘터는 모두의 쉼터입니다</h3>
-                    <p class="text-gray-700">
-                        조용하고 쾌적한 환경을 위해<br>
-                        작은 배려, 서로의 책임, 그리고 헬리녹스다운 태도를 지켜주세요.
-                    </p>
-                </div>
+            <h2 class="text-3xl font-bold text-center mb-8">캠핑장 이용수칙</h2>
+            
+            <div class="max-w-4xl mx-auto bg-gray-100 rounded-lg p-8 shadow-lg">
+                <h3 class="text-2xl font-bold mb-6 text-center">🧱 HARD RULES</h3>
+                <p class="text-lg text-center mb-6"><strong>이건 반드시 지켜주세요.</strong></p>
                 
-                <!-- 캠핑 영역 안내 섹션 추가 -->
-                <div class="mt-16 pt-8 border-t border-gray-200">
-                    <h3 class="text-xl font-bold mb-6">🏕️ 캠핑 가능/불가 구역 안내</h3>
-                    <p class="mb-4">안전하고 쾌적한 캠핑을 위해 지정된 구역 내에서만 캠핑을 해주세요.</p>
-                    
-                    <div class="rounded-lg overflow-hidden shadow-lg">
-                        <img src="6.jpeg?v=2" alt="캠핑장 구역 안내도" class="w-full h-auto">
-                    </div>
-                    
-                    <p class="text-sm text-gray-500 mt-3">* 위 이미지는 드론으로 촬영한 캠핑장 전경입니다. 지정된 구역을 확인하시고 캠핑해 주세요.</p>
-                </div>
+                <ul class="list-disc pl-8 space-y-2 mb-6">
+                    <li class="text-lg">쉘터 앞 텐트 설치 및 차량 주차 금지</li>
+                    <li class="text-lg">쉘터 내부에서 식사, 취사, 취침 행위 금지</li>
+                    <li class="text-lg">예약자 없이 동반인만 이용하는 행위 금지</li>
+                </ul>
+                
+                <p class="text-center text-gray-700 italic">
+                    We don't want to be strict,<br>
+                    but this place runs on trust. Let's keep it awesome.
+                </p>
+            </div>
+            
+            <div class="text-center mt-8">
+                <a href="rules.html" class="inline-block bg-primary hover:bg-gray-800 text-white font-bold py-3 px-8 rounded-lg transition duration-300">
+                    전체 이용수칙 보기
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- 주변 관광지 섹션 -->
-    <div id="attractions" class="py-20 bg-white">
+    <!-- 주변 관광지 미리보기 섹션 -->
+    <div class="py-16 bg-gray-100">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-center mb-12">주변 관광지</h2>
-            <div class="max-w-5xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <!-- 원남저수지 -->
-                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg">
-                        <img src="https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzA1MDdfMTIw%2FMDAxNjgzNDM3MTg5ODQ0.7a78SrfmBjLYrObHN3_A5G8zvQy5LCaTn5Lfm9Mfxgog.u5NFtJjBPIIKtNUJiN-nZsKHzV1b1bCW8STLpW62YUog.JPEG%2F20230507_120554.jpg" 
-                             alt="원남저수지" class="w-full h-64 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-3">원남저수지</h3>
-                            <p class="text-gray-700 mb-4">
-                                캠핑장에서 가까운 원남저수지는 아름다운 경관과 함께 산책하기 좋은 곳입니다. 고요한 호수와 주변의 자연 풍경이 어우러져 힐링의 시간을 선사합니다. 저수지 주변으로 조성된 산책로는 가볍게 걷기 좋으며, 특히 일출과 일몰 시간에 방문하면 아름다운 풍경을 감상할 수 있습니다.
-                            </p>
-                            <div class="flex items-start space-x-2 text-sm text-gray-600">
-                                <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                </svg>
-                                <span>충북 음성군 원남면 일대</span>
-                            </div>
-                            <div class="mt-2 flex items-start space-x-2 text-sm text-gray-600">
-                                <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                <span>24시간 개방</span>
-                            </div>
-                        </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://via.placeholder.com/600x400" alt="원남저수지" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
                     </div>
-
-                    <!-- 원남 독 놀이터 -->
-                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg">
-                        <img src="https://search.pstatic.net/common/?src=https%3A%2F%2Fpup-review-phinf.pstatic.net%2FMjAyMzA0MTZfMjA5%2FMDAxNjgxNjM2OTQzMDM4.Sla77xZj9dAFPBp8qWsz_YeE2t3ib-Swd5Kt28mMsvIg.XsKiIcmzbZmwWcEFf_qWLX_LvOYfidvk0-pUF07kYYUg.JPEG%2F20230416_151021.jpg" 
-                             alt="원남독 놀이터" class="w-full h-64 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-3">원남 독(犢) 놀이터</h3>
-                            <p class="text-gray-700 mb-4">
-                                원남테마공원 내에 위치한 반려견 전용 놀이터로, 넓은 잔디밭에서 반려견과 함께 자유롭게 뛰어놀 수 있는 공간입니다. 대형견과 소형견 구역이 구분되어 있으며, 그늘막과 벤치도 마련되어 있어 반려견과 함께 여행하는 분들께 추천합니다. 강아지와 함께 캠핑을 오신다면 꼭 들러보세요.
-                            </p>
-                            <div class="flex items-start space-x-2 text-sm text-gray-600">
-                                <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                </svg>
-                                <span>충북 음성군 원남면 원중로399번길 30 (원남테마공원 내)</span>
-                            </div>
-                            <div class="mt-2 flex items-start space-x-2 text-sm text-gray-600">
-                                <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                <span>연중무휴 (24시간 개방)</span>
-                            </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">원남저수지</h3>
+                        <p class="text-gray-600 mb-4">캠핑장에서 가까운 원남저수지는 아름다운 경관과 함께 산책하기 좋은 곳입니다. 고요한 호수와 주변의 자연 풍경이 어우러져 힐링의 시간을 선사합니다.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">24시간 개방</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- 추가 정보 -->
-                <div class="mt-10 bg-gray-50 rounded-xl p-6 shadow-lg">
-                    <h3 class="text-xl font-bold mb-4">더 알아보기</h3>
-                    <p class="text-gray-700">
-                        원남면 일대에는 품바재생예술체험촌, 양촌리 음식특화거리 등 다양한 볼거리와 먹거리가 있습니다. 캠핑장에서의 힐링과 함께 주변 관광지를 방문하시면 더욱 풍성한 여행이 될 것입니다.
-                    </p>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://via.placeholder.com/600x400" alt="원남 독(犢) 놀이터" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">원남 독(犢) 놀이터</h3>
+                        <p class="text-gray-600 mb-4">원남테마공원 내에 위치한 반려견 전용 놀이터로, 넓은 잔디밭에서 반려견과 함께 자유롭게 뛰어놀 수 있는 공간입니다. 대형견과 소형견 구역이 구분되어 있습니다.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">연중무휴 (24시간 개방)</span>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <a href="attractions.html" class="inline-block bg-primary hover:bg-gray-800 text-white font-bold py-3 px-8 rounded-lg transition duration-300">
+                    더 알아보기
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- 찾아가는 길 섹션 -->
-    <div id="directions" class="py-20 bg-gray-50">
+    <!-- 푸터 -->
+    <footer class="bg-gray-800 text-white py-10">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">찾아가는 길</h2>
-            <div class="max-w-6xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- 왼쪽: 주소 및 찾아오는 방법 -->
-                    <div class="bg-white rounded-xl p-8 shadow-lg">
-                        <div class="mb-8">
-                            <h3 class="text-xl font-bold mb-4">주소</h3>
-                            <div class="flex items-start space-x-3">
-                                <svg class="w-6 h-6 text-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                </svg>
-                                <span class="text-lg">충청북도 음성군 원남면 원중로399번길 309</span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 class="text-xl font-bold mb-4">대중교통 이용</h3>
-                            <ul class="space-y-4">
-                                <li class="flex items-start space-x-3">
-                                    <svg class="w-6 h-6 text-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                    <div>
-                                        <p class="font-bold">버스 이용</p>
-                                        <p>음성 시외버스터미널 → 원남면행 버스 탑승 → 조촌리 하차</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start space-x-3">
-                                    <svg class="w-6 h-6 text-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                    <div>
-                                        <p class="font-bold">기차 이용</p>
-                                        <p>음성역(중앙선) 하차 → 택시 이용(약 25분 소요)</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start space-x-3">
-                                    <svg class="w-6 h-6 text-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                    <div>
-                                        <p class="font-bold">자차 이용</p>
-                                        <p>중부고속도로 → 음성IC → 원남면 방면 → 조촌리</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- 오른쪽: 위치 안내 이미지 -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                        <div class="relative">
-                            <img src="7.jpeg" alt="캠핑장 오시는 길 안내" class="w-full h-auto">
-                        </div>
-                        <div class="p-4 bg-gray-50">
-                            <div class="flex items-start space-x-2 mb-3">
-                                <svg class="w-5 h-5 text-primary mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                </svg>
-                                <span class="font-medium">충청북도 음성군 원남면 원중로399번길 309</span>
-                            </div>
-                            <div class="mt-2 pl-7 text-sm text-gray-700">
-                                <p class="font-medium">* 마지막 다리를 건너서 좌회전 후 200미터를 전진하면 왼쪽으로 철문이 보입니다.
-                                <br>일부 네비게이션은 잘못된 위치를 가르쳐주니 유의하시기 바랍니다.</p>
-                            </div>
-                        </div>
-                    </div>
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <img src="Helinox-로고_White.png" alt="Helinox" class="h-8 w-auto">
+                        <span class="font-bold text-xl">사내 캠핑장</span>
+                    </a>
+                </div>
+                <div class="text-center md:text-right">
+                    <p>주소: 충청북도 음성군 원남면 원중로399번길 309</p>
+                    <p class="mt-2">© 2023 Helinox. All rights reserved.</p>
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
 </body>
 </html>
