@@ -32,7 +32,6 @@
                     <span class="text-white font-bold text-2xl font-sans">사내 캠핑장</span>
                 </a>
                 <div class="hidden md:flex space-x-8">
-                    <a href="gallery.html" class="text-white hover:text-gray-300 transition">캠핑장 전경</a>
                     <a href="rules.html" class="text-white hover:text-gray-300 transition">이용수칙</a>
                     <a href="directions.html" class="text-white hover:text-gray-300 transition">찾아오시는 길</a>
                 </div>
@@ -57,6 +56,18 @@
                         예약하기
                     </a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 예약 현황 섹션 -->
+    <div class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8">예약 현황</h2>
+            <div class="max-w-5xl mx-auto rounded-xl overflow-hidden shadow-lg">
+                <iframe src="https://calendar.google.com/calendar/embed?src=c_f64b31c1e80fc847fc2ea3fb3e9973faaca2cdab3216b3d11ae1b5b68c9bba64%40group.calendar.google.com&ctz=Asia%2FSeoul"
+                        style="border: 0" width="100%" height="600" frameborder="0" scrolling="no">
+                </iframe>
             </div>
         </div>
     </div>
@@ -132,6 +143,87 @@
             <div class="text-center mt-8">
                 <a href="rules.html" class="inline-block bg-primary hover:bg-gray-800 text-white font-bold py-3 px-8 rounded-lg transition duration-300">
                     전체 이용수칙 보기
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 찾아오시는 길 섹션 -->
+    <div class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-8">찾아오시는 길</h2>
+            
+            <!-- 주소 정보 -->
+            <div class="max-w-4xl mx-auto bg-white rounded-lg p-8 shadow-lg mb-10">
+                <div class="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+                    <div class="text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">주소</h3>
+                        <p class="text-lg mb-2">충청북도 음성군 원남면 원중로399번길 309</p>
+                        <p class="text-gray-600">우편번호: 27739</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 지도 -->
+            <div class="max-w-5xl mx-auto rounded-lg overflow-hidden shadow-lg bg-white mb-10">
+                <img src="10.jpeg" alt="캠핑장 위치 지도" class="w-full">
+            </div>
+            
+            <!-- 교통 정보 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- 대중교통 이용 -->
+                <div class="bg-white rounded-lg p-8 shadow-lg">
+                    <div class="flex items-start mb-6">
+                        <div class="bg-primary rounded-full p-3 mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold">대중교통 이용</h3>
+                    </div>
+                    
+                    <div class="space-y-4 ml-16">
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">버스 이용</h4>
+                            <p>음성 시외버스터미널 → 원남면행 버스 탑승 → 조촌리 하차</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">기차 이용</h4>
+                            <p>음성역(중앙선) 하차 → 택시 이용(약 25분 소요)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 자가용 이용 -->
+                <div class="bg-white rounded-lg p-8 shadow-lg">
+                    <div class="flex items-start mb-6">
+                        <div class="bg-primary rounded-full p-3 mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h8m0 0l-4-4m4 4l-4 4m8 6H4" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold">자차 이용</h3>
+                    </div>
+                    
+                    <div class="space-y-4 ml-16">
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">경로 안내</h4>
+                            <p>중부고속도로 → 음성IC → 원남면 방면 → 조촌리</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <a href="directions.html" class="inline-block bg-primary hover:bg-gray-800 text-white font-bold py-3 px-8 rounded-lg transition duration-300">
+                    상세 안내 보기
                 </a>
             </div>
         </div>
